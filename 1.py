@@ -11,24 +11,24 @@ import pandas as pd
 import seaborn as sns
 
 
-dataset1 = pd.read_csv('test.csv')
-dataset2 = pd.read_csv('sample_submission.csv')
-X = dataset1.iloc[:, :].values
-y = dataset2.iloc[:,1].values
-
-dataset1.head()
+dataset = pd.read_csv('train.csv')
+X = dataset.iloc[:, dataset.columns != 'SalePrice'].values
+y = dataset['SalePrice'].values
 
 sns.set(style="darkgrid")
-lot_area = dataset1['LotArea']
+lot_area = dataset['LotArea']
 
 sns.distplot(lot_area)
 plt.show()
 
-sns.relplot(x='SaleCondition', y=y, data=dataset1)
+sns.relplot(x='SaleCondition', y=y, data=dataset)
 plt.show()
 
-sns.relplot(x='LotArea', y=y, data=dataset1)
+sns.relplot(x='LotArea', y=y, data=dataset)
 plt.show()
 
-sns.countplot(x='YrSold', data=dataset1)
+sns.countplot(x='YrSold', data=dataset)
+plt.show()
+
+sns.heatmap(dataset.corr(), xticklabels=1, yticklabels=1)
 plt.show()
